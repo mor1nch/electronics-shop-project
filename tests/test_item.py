@@ -14,3 +14,16 @@ def test_apply_discount():
     item1.pay_rate = 0.8
     item1.apply_discount()
     assert item1.calculate_total_price() == 124
+
+
+def test_property_name():
+    assert item1.name == "Apple"
+    item1.name = "Orange"
+    assert item1.name == "Orange"
+
+
+def test_string_to_number():
+    assert Item.string_to_number("10.11111") == 10
+    assert Item.string_to_number("11.9") == 11
+    assert Item.string_to_number("12") == 12
+    assert Item.string_to_number("0.1") == 0
