@@ -27,3 +27,14 @@ def test_string_to_number():
     assert Item.string_to_number("11.9") == 11
     assert Item.string_to_number("12") == 12
     assert Item.string_to_number("0.1") == 0
+
+
+def test_magic_methods():
+    item1 = Item("Макбук м2", 200000, 3)
+    assert repr(item1) == "Item('Макбук м2', 200000, 3)"
+    assert str(item1) == 'Макбук м2'
+    item1.name = 'Макбук м3'
+    assert str(item1) == 'Макбук м3'
+    item1.quantity = 4
+    assert repr(item1) == "Item('Макбук м3', 200000, 4)"
+
