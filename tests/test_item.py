@@ -38,3 +38,8 @@ def test_magic_methods():
     item1.quantity = 4
     assert repr(item1) == "Item('Макбук м3', 200000, 4)"
 
+
+def test_calculate_price():
+    item1 = Item("Phone1", 20000, 3)
+    item2 = Item("Phone2", 30000, 5)
+    assert item1.price + item2.price == 50000
