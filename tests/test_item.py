@@ -1,4 +1,4 @@
-from src.item import Item
+from src.item import Item, InstantiateCSVError
 
 item1 = Item(name="Apple", quantity=10, price=15.5)
 item2 = Item(name="Banana", quantity=7, price=40)
@@ -43,3 +43,17 @@ def test_calculate_price():
     item1 = Item("Phone1", 20000, 3)
     item2 = Item("Phone2", 30000, 5)
     assert item1.price + item2.price == 50000
+
+
+def test_instantiate_from_csv_file_not_found():
+    try:
+        Item.instantiate_from_csv('unknown_path')
+    except FileNotFoundError:
+        assert 1 == 1
+
+
+def test_instantiate_from_csv_file_not_correct():
+    try:
+        Item.instantiate_from_csv('../src/failed_items.csv')
+    except InstantiateCSVError:
+        assert 1 == 1

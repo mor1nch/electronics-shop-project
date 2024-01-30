@@ -59,14 +59,28 @@ class Item:
 
     @classmethod
     def instantiate_from_csv(cls, path):
-        with open(path, "r", encoding="utf-8") as csvfile:
-            reader = DictReader(csvfile)
-            for row in reader:
-                name = row["name"]
-                price = float(row["price"])
-                quantity = int(row["quantity"])
-                cls(name, price, quantity)
+        try:
+            with open(path, "r", encoding="utf-8") as csvfile:
+                reader = DictReader(csvfile)
+                for row in reader:
+                    try:
+                        name = row["name"]
+                        price = float(row["price"])
+                        quantity = int(row["quantity"])
+                        cls(name, price, quantity)
+                    except Exception:
+                        raise InstantiateCSVError(path)
+        except FileNotFoundError:
+            print(f"Отсутствует файл {path}")
 
     @staticmethod
-    def string_to_number(number: str):
-        return int(number.split(".")[0])
+    def string_to_number(number: str) -> int:
+        try:
+            return int(number.split(".")[0])
+        except ValueError:
+            raise ValueError("Строка не содержит число до точки")
+
+
+class InstantiateCSVError(Exception):
+    def __init__(self, path):
+        super().__init__(f"Файл {path} поврежден")
